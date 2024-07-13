@@ -1,0 +1,54 @@
+import random
+
+def guess_the_number(min_num, max_num, attempts):
+    # Generate a random number
+    target_number = random.randint(min_num, max_num)
+    print("Guess the number between {} and {}.".format(min_num, max_num))
+
+    # Initialize variables
+    attempts_left = attempts
+    user_guess = None
+
+    # Start the game loop
+    while attempts_left > 0:
+        print("Attempts left:", attempts_left)
+        try:
+            user_guess = int(input("Enter your guess: "))
+        except ValueError:
+            print("Please enter a valid number.")
+            continue
+
+        if user_guess == target_number:
+            print("Congratulations! You guessed the number correctly:", target_number)
+            return True
+        elif user_guess < target_number:
+            print("Too low!")
+        else:
+            print("Too high!")
+        attempts_left -= 1
+
+    print("Sorry, you've run out of attempts. The correct number was:", target_number)
+    return False
+
+def main():
+    min_num = 1
+    max_num = 100
+    attempts = 5
+    rounds = 0
+    score = 0
+
+    play_again = True
+    while play_again:
+        rounds += 1
+        print("Round", rounds)
+        if guess_the_number(min_num, max_num, attempts):
+            score += 1
+
+        play_again_input = input("Do you want to play again? (yes/no): ")
+        if play_again_input.lower() != "yes":
+            play_again = False
+
+    print("Game over! Rounds played:", rounds, "Score:", score)
+
+if __name__ == "__main__":
+    main()
